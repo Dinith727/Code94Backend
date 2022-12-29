@@ -1,5 +1,4 @@
 import express from 'express';
-import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 import {
@@ -18,11 +17,11 @@ import {
  
 } from '../controllers/productController.js';
 // router.get('/',getProducts);
-router.route('/').get(getProducts).post(protect, admin, createProduct);
+router.route('/').get(getProducts).post(createProduct);
 
 // router.get('/:id', getProductById);
-router.route('/:id/reviews').post(protect, createProductReview);
-router.route('/delreview/:id/:reviewid').delete(protect,admin, deleteReview);
+router.route('/:id/reviews').post(createProductReview);
+router.route('/delreview/:id/:reviewid').delete(deleteReview);
 router.get('/top', getTopProducts);
 router.get('/stock',getStockCount);
 router.get('/count',getproductCount)
@@ -31,8 +30,8 @@ router.get('/total',getTotal)
 router
   .route('/:id')
   .get(getProductById)
-  .delete(protect, admin, deleteProduct)
-  .put(protect, admin, updateProduct);
+  .delete(deleteProduct)
+  .put(updateProduct);
 
 
 export default router;
